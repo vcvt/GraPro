@@ -24,11 +24,11 @@ import matplotlib.pyplot as plt
     a280:2579
     berlin52:7542
 """
-(ALPHA, BETA, RHO, Q) = (1, 4, 0.1, 100)
-(city_num, ant_num, iter_max) = (48, 50, 500)
+(ALPHA, BETA, RHO, Q) = (1, 1, 0.5, 100)
+(city_num, ant_num, iter_max) = (51, 50, 300)
 distance_x = []
 distance_y = []
-for line in open('att48.tsp'):
+for line in open('eil51.tsp'):
     items = line.strip('\n').split()
     distance_x.append(float(items[1]))
     distance_y.append(float(items[2]))
@@ -114,7 +114,7 @@ class AntColony:
             self.update_pheromone()
             for ant in self.ants:
                 ant.data_init()
-            self._print()
+           # self._print()
 
     def _print(self):
         print "Best Distance: ", self.best_ant.total_distance
@@ -136,8 +136,8 @@ if __name__ == '__main__':
     time_start = time.time()
     test = AntColony()
     test.search_path()
-    print "Last Best Distance: ", test.best_ant.total_distance
-    print "Last Best Path: ", test.best_ant.tabu
+    print "Best Distance: ", test.best_ant.total_distance
+    print "Best Path: ", test.best_ant.tabu
     time_end = time.time()
     print "Cost Time: ",time_end - time_start
     for i in xrange(iter_max):
@@ -148,11 +148,23 @@ if __name__ == '__main__':
     plt.xlabel("x")
     plt.ylabel("y")
     plt.title('ACO RESULT')
+
+    #bestTour = [1,8,38,31,44,18,7,28,6,37,19,27,17,43,30,36,46,33,20,47,21,
+    #            32,39,48,5,42,24,10,45,35,4,26,2,29,34,41,16,22,3,23,14,25,13,11,12,15,40,9,1]
+
+
     for i in range(city_num):
+        """
+        if i == bestTour[0]:
+            plt.plot(distance_x[i-1], distance_y[i-1], 'or')
+        else:
+            plt.plot(distance_x[i-1], distance_y[i-1], 'ok')
+        """
         if i == test.best_ant.tabu[0]:
             plt.plot(distance_x[i], distance_y[i], 'or')
         else:
             plt.plot(distance_x[i], distance_y[i], 'ok')
+
     x = []
     y = []
     for i in range(city_num):
@@ -160,6 +172,12 @@ if __name__ == '__main__':
         y.append(distance_y[test.best_ant.tabu[i]])
     x.append(distance_x[test.best_ant.tabu[0]])
     y.append(distance_y[test.best_ant.tabu[0]])
+    """
+        x.append(distance_x[bestTour[i]-1])
+        y.append(distance_y[bestTour[i]-1])
+    x.append(distance_x[bestTour[0]-1])
+    y.append(distance_y[bestTour[0]-1])
+    """
     plt.plot(x, y)
     plt.show()
 

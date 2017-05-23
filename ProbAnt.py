@@ -25,10 +25,10 @@ import matplotlib.pyplot as plt
     berlin52:7542
 """
 (ALPHA, BETA, RHO, Q) = (1, 4, 0.1, 100)
-(city_num, ant_num, iter_max) = (51, 50, 500)
+(city_num, ant_num, iter_max) = (48, 48, 300)
 distance_x = []
 distance_y = []
-for line in open('eil51.tsp'):
+for line in open('att48.tsp'):
     items = line.strip('\n').split()
     distance_x.append(float(items[1]))
     distance_y.append(float(items[2]))

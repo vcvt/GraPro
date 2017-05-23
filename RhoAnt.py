@@ -131,11 +131,12 @@ class AntColony:
             self.update_pheromone()
             for ant in self.ants:
                 ant.data_init()
-            #self._print()
+            self._print()
 
     def _print(self):
         print "Best Distance: ", self.best_ant.total_distance
         print "Best Path: ", self.best_ant.tabu
+        print "r",RHO
 
     def update_pheromone(self):
         delta = [[0.0 for i in xrange(city_num)]
